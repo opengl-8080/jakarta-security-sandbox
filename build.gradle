@@ -1,0 +1,30 @@
+plugins {
+    id "java"
+//    id "war"
+//    id "application"
+    id "fish.payara.micro-gradle-plugin" version "1.1.0"
+}
+
+sourceCompatibility = 17
+
+compileJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    implementation 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
+    implementation 'jakarta.platform:jakarta.jakartaee-api:9.1.0'
+//    implementation 'fish.payara.extras:payara-embedded-web:5.2022.2'
+}
+
+payaraMicro {
+    payaraVersion = '5.2022.2'
+    deployWar = false
+    useUberJar = true
+    daemon = false
+    commandLineOptions = [port: 8080]
+}
+
+tasks.microStart.dependsOn "microBundle"
